@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery</title>
+  <link rel="stylesheet" href="image-title.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+</head>
+
+<body>
+  <div class="container image-container">
+    <!-- heading text -->
+    <div class="image-text">
+      <p class="image-heading">Everyone's photos</p>
+      <p class="image-view">View all 2,724,700</p>
+    </div>
+    <!-- image gallery ul -->
+    <ul class="image-ul">
+    </ul>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      // Fetch Json Data
+      fetch('https://picsum.photos/v2/list')
+        .then(response => response.json()) // Extract JSON Body Content
+        .then(data => {
+          var imageli = '';
+
+          // Iterating object
+          $.each(data, function (i, item) {
+            // Displaying download_url value of object in li tag
+            imageli += `<li><img src=${data[i].download_url} title=Author-${data[i].author}></li>`;
+          });
+          $('.image-ul').append(imageli); //append content of imageli at the end of image-ul class
+        })
+    });
+  </script>
+</body>
+
+</html>
